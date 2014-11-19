@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Predicting Eruption Wait Times for Old Faithful</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Predicting Eruption Wait Times for Old Faithful">
+  <meta name="author" content="SS">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Predicting Eruption Wait Times for Old Faithful</h1>
+    <h2>Data Products Course Project</h2>
+    <p>SS<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is Old Faithful?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Old Faithful is a geyser in Yellowstone National Park in the U.S. It erupts periodically. See <a href="http://en.wikipedia.org/wiki/Old_Faithful">wikipedia page</a>  </p>
+
+<p><img src="C:/Users/owner/Desktop/For%20Dell/Data%20Products/example/oldFaithful/oldFaithful/assets/img/Photo.jpg" alt=""></p>
+
+<p>It can shoot 14,000 to 32,000 liters of boiling water to a height of 30-55 meters. It is an impressive sight!  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Predicting Wait Time During Eruptions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The duration of each eruption and wait time between eruptions has been observed and recorded. One dataset was created with 272 observations. There seems to be a relationship between the duration of an eruption and how long you have to wait for the next one.</p>
+
+<p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="400" height="400" />
+The red line indicates a simple regression.  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Regression Analysis Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">summary(fit)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = waiting ~ eruptions, data = faithful)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -12.080  -4.483   0.212   3.925  15.972 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   33.474      1.155    29.0   &lt;2e-16 ***
+## eruptions     10.730      0.315    34.1   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.91 on 270 degrees of freedom
+## Multiple R-squared:  0.811,  Adjusted R-squared:  0.811 
+## F-statistic: 1.16e+03 on 1 and 270 DF,  p-value: &lt;2e-16
+</code></pre>
+
+<p>The p-value is well under 0.05  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Predicting</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We now have a simple prediction model. So, for any input we can predict what will the wait be for the next eruption.</p>
+
+<pre><code class="r">erupt&lt;- 5 #Assume last eruption was 5 minutes long 
+wait &lt;- fit$coeff[1] + erupt * fit$coeff[2]
+paste(&quot;Expected time to next eruption is&quot;, round(wait, 0), &quot;minutes.&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;Expected time to next eruption is 87 minutes.&quot;
+</code></pre>
+
+<hr>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What is Old Faithful?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Predicting Wait Time During Eruptions'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Regression Analysis Summary'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Predicting'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

@@ -1,0 +1,59 @@
+---
+title       : Predicting Eruption Wait Times for Old Faithful
+subtitle    : Data Products Course Project
+author      : SS
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## What is Old Faithful?
+
+Old Faithful is a geyser in Yellowstone National Park in the U.S. It erupts periodically. See [wikipedia page](http://en.wikipedia.org/wiki/Old_Faithful)  
+
+![](C:/Users/owner/Desktop/For Dell/Data Products/example/oldFaithful/oldFaithful/assets/img/Photo.jpg)
+
+It can shoot 14,000 to 32,000 liters of boiling water to a height of 30-55 meters. It is an impressive sight!  
+
+--- .class #id 
+
+## Predicting Wait Time During Eruptions
+
+The duration of each eruption and wait time between eruptions has been observed and recorded. One dataset was created with 272 observations. There seems to be a relationship between the duration of an eruption and how long you have to wait for the next one.
+
+```{r, echo=FALSE, out.height=400, out.width=400}
+require(stats); require(graphics);
+f.tit <-  "faithful data: Eruptions of Old Faithful"
+plot(faithful$eruptions, faithful$waiting, main = f.tit,
+     xlab = "Eruption time (min)",
+     ylab = "Waiting time to next eruption (min)")
+fit <- lm(waiting ~ eruptions, faithful)
+      abline(fit, col="red")
+```
+The red line indicates a simple regression.  
+
+--- .class #id
+
+## Regression Analysis Summary
+```{r, }
+summary(fit)
+```
+The p-value is well under 0.05  
+
+--- .class #id
+
+## Predicting
+
+We now have a simple prediction model. So, for any input we can predict what will the wait be for the next eruption.
+```{r}
+erupt<- 5 #Assume last eruption was 5 minutes long 
+wait <- fit$coeff[1] + erupt * fit$coeff[2]
+paste("Expected time to next eruption is", round(wait, 0), "minutes.")
+```
+  
+  
+---  
